@@ -1,0 +1,19 @@
+{
+  "lockfileVersion": 1,
+  "dependencies": {
+    "chromedriver": "^2.40.0",
+    "geckodriver": "^1.11.0",
+    "n": "^2.1.12",
+    "selenium-standalone": "^6.15.1",
+    "webdriverio": "^4.13.1"
+  },
+  "devDependencies": {
+    "wdio-chromedriver-service": "^0.1.1",
+    "wdio-dot-reporter": "0.0.9",
+    "wdio-firefox-profile-service": "^0.1.0",
+    "wdio-json-reporter": "~0.0.1",
+    "wdio-mocha-framework": "^0.5.11",
+    "wdio-selenium-standalone-service": "0.0.10",
+    "wdio-spec-reporter": "^0.1.5"
+  }
+}
