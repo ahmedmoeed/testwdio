@@ -9,7 +9,6 @@ var locationIndex = '//li[@data-selected="true"]'
 var moreOption = '//span[@aria-label="Collapse expand button"]'
 var moreFilteroptions = '//span[@class="_514754a1"]'
 var propertyTypebox = '//div[@name="property type"]'
-var propertyTypes = '//div[@class="_97ab0b50"]'
 var priceFilter = '//div[@aria-label="Price filter"]'
 var minPricerange = '//button[@aria-label="200,000"]'
 var maxPricerange = '//div[@role="listbox"]//div[@class="ef391b9a"][2]'
@@ -17,6 +16,8 @@ var bedsFilter = '//div[@aria-label="Bed filter"]'
 var selectedBeds = '//*[@aria-label="5"]'
 var findButton = '//a[@role="button"]'
 var closeBedsfilter = '//button[@class="_85b30621"]'
+var showpropertytypes = '//*[@name="Category picker"]'
+//var selectedproperty
 
 //Page Functions
 var homepage = Object.create(page, { 
@@ -35,13 +36,22 @@ var homepage = Object.create(page, {
             console.log("More Filters are already viewable")
         }
     }},
-
-    selectpropertytype : {get: function() {
+    
+    selectpropertytype : {value: function(selectedproperty){
         $(propertyTypebox).click();
-        //Saving the entire residential list
-        var getPropertytype = $(propertyTypes);
-        //Select the property type available on the index 1
-        getPropertytype.$$('li')[1].click();
+        //var selectedproperty = 'Townhouse'
+        var propertytypelist = $(showpropertytypes);
+        var getPropertytypenames = $(showpropertytypes).getText('li');
+        var numberofproperties = getPropertytypenames.length
+
+        for (var i =0 ; i<=numberofproperties ; i++)
+        {
+            var propertyname = getPropertytypenames[i];
+            if(propertyname == selectedproperty)
+            {
+                propertytypelist.$$('li')[i].click();
+            }
+        }    
     }},
 
     selectprice : {get: function(){

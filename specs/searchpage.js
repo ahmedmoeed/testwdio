@@ -26,7 +26,7 @@ describe('homepage', function() {
 
     it ('Select Property Type', function(){
         browser.pause(2000);
-        homepage.selectpropertytype;
+        homepage.selectpropertytype('Townhouse');
     })
 
     it('Select min and max price', function(){
