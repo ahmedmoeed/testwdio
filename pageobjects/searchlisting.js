@@ -5,6 +5,7 @@ var propertyCard = '//*[@role="article"]'
 var listings = '//*[@class="ba88a3b9"]'
 var selectedLocation = '//*[@aria-label = "Active filter label"]'
 var listingLocation = '//*[@aria-label="Search results header"]/following::div[@aria-label="Listing location"]'
+var navigation  = '//*[@role="Navigation"]//child::div[@title]'
 
 //Page Functions
 var searchlisting = Object.create(page, { 
@@ -21,12 +22,21 @@ verifyListingslocation : {get: function(){
         {
             if (i == (gettingListings-1))
             {
-                console.log("All the listings are from " + locationFiltertext)
+                console.log(gettingListings + " listings on Page 1 are from " + locationFiltertext)
             }
         }
     else{
       assert.equal($$(listingLocation)[i].getText().includes("Dubai"), "The Listing is not in " + locationFiltertext)     
     }}
+}},
+
+navigateNextpage : {value: function(pageNumber){
+    var navigationBar = $$(navigation).length
+    if (navigationBar > 1)
+    {   
+        $$(navigation)[pageNumber].click()
+    }
+    //console.log("Verifying " + $$(navigation)[pageNumber].getText() + " listings")
 }}
 
 })

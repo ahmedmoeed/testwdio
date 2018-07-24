@@ -30,8 +30,7 @@ describe('homepage', function() {
     })
 
     it('Select min and max price', function(){
-        homepage.selectMinprice("200,000");
-        homepage.selectMaxprice("5,000,000");
+        homepage.selectMinprice("200,000" , "5,000,000");
     })
 
     it('Select beds', function(){
@@ -45,6 +44,8 @@ describe('homepage', function() {
 
 describe('searchlisting', function(){
     it('verify all the listings are from dubai', function() {
+        searchlisting.verifyListingslocation;
+        searchlisting.navigateNextpage("2");
         searchlisting.verifyListingslocation;
     })
 });

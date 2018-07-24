@@ -16,7 +16,6 @@ var selectedBeds = '//*[@aria-label="Bed filter"]/following::*[@aria-label]'
 var findButton = '//a[@role="button"]'
 var closeBedsfilter = '//button[@class="_85b30621"]'
 var showPropertytypes = '//*[@name="Category picker"]'
-var selectedLocation = '//*[@aria-label = "Active filter label"]'
 //var selectedproperty
 
 //Page Functions
@@ -59,29 +58,21 @@ var homepage = Object.create(page, {
         }    
     }},
 
-    selectMinprice : {value: function(minPrice){
+    selectMinprice : {value: function(minPrice, maxPrice){
         $(priceFilter).click();
 
         var totalMinprices = $$(minPricerange).length;
-        for (var i = 0 ; i < totalMinprices ; i++ )
+        var totalMaxprices = $$(maxPricerange).length
+
+        for (var i = 0, j = 0 ; i < totalMinprices, j <totalMaxprices ; i++ , j++ )
         {
             //var price = $(minPricerange)[i].getText()
             if ($$(minPricerange)[i].getText() == minPrice)
             {
                 $$(minPricerange)[i].click()
-                console.log(minPrice + ' is selected as the min price');
+                console.log(minPrice + ' is selected as the min price'); 
             }
-        }
-    }},
-
-    selectMaxprice : {value: function(maxPrice){
-        //Saving the entire max price range
-        var totalMaxprices = $$(maxPricerange).length
-        //Select the max price from the list
-        for (var i = 0 ; i < totalMaxprices ; i++ )
-        {
-            //var price = $(minPricerange)[i].getText()
-            if ($$(maxPricerange)[i].getText() == maxPrice)
+            if($$(maxPricerange)[i].getText() == maxPrice)
             {
                 $$(maxPricerange)[i].click()
                 console.log(maxPrice + ' is selected as the max price');
