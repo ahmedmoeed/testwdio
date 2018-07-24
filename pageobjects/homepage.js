@@ -1,22 +1,22 @@
 var page = require('./page');
 var assert = require('assert');
-//var prop = require('./prop');
 
 //Page objects
-var saleButton = '//*[@class="b7afbb84"]'
-var locationBar = '//*[@placeholder="Location"]'
+var saleButton = '//*[text() = "For Sale"]'
+var locationBar = '//*[@type="text"]'
 var locationIndex = '//li[@data-selected="true"]'
-var moreOption = '//span[@aria-label="Collapse expand button"]'
+var moreOption = '//*[@aria-label="Collapse expand button"]'
 var moreFilteroptions = '//span[@class="_514754a1"]'
 var propertyTypebox = '//div[@name="property type"]'
 var priceFilter = '//div[@aria-label="Price filter"]'
-var minPricerange = '//button[@aria-label="200,000"]'
-var maxPricerange = '//div[@role="listbox"]//div[@class="ef391b9a"][2]'
-var bedsFilter = '//div[@aria-label="Bed filter"]'
-var selectedBeds = '//*[@aria-label="5"]'
+var minPricerange = '//*[@role="listbox"]//*[@class="ef391b9a"][1]//child::button[@aria-label]'
+var maxPricerange = '//*[@role="listbox"]//div[@class="ef391b9a"][2]//child::button[@aria-label]'
+var bedsFilter = '//*[@aria-label="Bed filter"]'
+var selectedBeds = '//*[@aria-label="Bed filter"]/following::*[@aria-label]'
 var findButton = '//a[@role="button"]'
 var closeBedsfilter = '//button[@class="_85b30621"]'
-var showpropertytypes = '//*[@name="Category picker"]'
+var showPropertytypes = '//*[@name="Category picker"]'
+var selectedLocation = '//*[@aria-label = "Active filter label"]'
 //var selectedproperty
 
 //Page Functions
@@ -24,11 +24,16 @@ var homepage = Object.create(page, {
 
     salebtn : {get: function() {return $(saleButton)}},
 
-    enterlocation : {get: function() {homepageassertions.entertext1}},
+    enterlocation : {value: function(setLocation) {
+        $(locationBar).setValue(setLocation)
+        browser.pause(2000);
+        $(locationIndex).click();
+        console.log(setLocation + " is entered in the location box")
+    }},
     
     clickmoreoption :{get: function() {
-        var expectedoption = 'More Options'
-        if(browser.getText(moreFilteroptions) == expectedoption)
+        var expectedOption = 'More Options'
+        if(browser.getText(moreFilteroptions) == expectedOption)
         {
             return $(moreOption).click()
         }
@@ -36,57 +41,72 @@ var homepage = Object.create(page, {
             console.log("More Filters are already viewable")
         }
     }},
-    
-    selectpropertytype : {value: function(selectedproperty){
+
+    selectpropertytype : {value: function(selectedProperty){
         $(propertyTypebox).click();
         //var selectedproperty = 'Townhouse'
-        var propertytypelist = $(showpropertytypes);
-        var getPropertytypenames = $(showpropertytypes).getText('li');
-        var numberofproperties = getPropertytypenames.length
+        var propertyTypelist = $(showPropertytypes);
+        var getPropertytypenames = $(showPropertytypes).getText('li');
+        var numberofProperties = getPropertytypenames.length
 
-        for (var i =0 ; i<=numberofproperties ; i++)
+        for (var i =0 ; i<=numberofProperties ; i++)
         {
-            var propertyname = getPropertytypenames[i];
-            if(propertyname == selectedproperty)
+            var propertyName = getPropertytypenames[i];
+            if(propertyName == selectedProperty)
             {
-                propertytypelist.$$('li')[i].click();
+                propertyTypelist.$$('li')[i].click();
             }
         }    
     }},
 
-    selectprice : {get: function(){
+    selectMinprice : {value: function(minPrice){
         $(priceFilter).click();
-        $(minPricerange).click();
-        console.log($(minPricerange).getText() + ' is selected as minimum price')
-        //Saving the entire max price range
-        var getMaxpricelist = $(maxPricerange);
-        //Select the max price from the list
-        getMaxpricelist.$$('button')[16].click();
-        var selectMaxprice = getMaxpricelist.$$('button')[16];
-        console.log(selectMaxprice.getText() + ' is selected as the max price');
+
+        var totalMinprices = $$(minPricerange).length;
+        for (var i = 0 ; i < totalMinprices ; i++ )
+        {
+            //var price = $(minPricerange)[i].getText()
+            if ($$(minPricerange)[i].getText() == minPrice)
+            {
+                $$(minPricerange)[i].click()
+                console.log(minPrice + ' is selected as the min price');
+            }
+        }
     }},
 
-    selectbeds : {get: function(){
+    selectMaxprice : {value: function(maxPrice){
+        //Saving the entire max price range
+        var totalMaxprices = $$(maxPricerange).length
+        //Select the max price from the list
+        for (var i = 0 ; i < totalMaxprices ; i++ )
+        {
+            //var price = $(minPricerange)[i].getText()
+            if ($$(maxPricerange)[i].getText() == maxPrice)
+            {
+                $$(maxPricerange)[i].click()
+                console.log(maxPrice + ' is selected as the max price');
+            }
+        }
+    }},
+
+    selectbeds : {value: function(bedValue){
         $(bedsFilter).click();
-        $(selectedBeds).click();
+        var totalBeds = $$(selectedBeds).length
+        for (var i = 0 ; i < totalBeds ; i++)
+        {
+            if ($$(selectedBeds)[i].getText() == bedValue)
+            {
+                $$(selectedBeds)[i].click()
+                console.log(bedValue + ' beds are selected')
+            }
+        }
         $(closeBedsfilter).click();
-        //console.log(selectedbeds.getText() + ' is selected as the no. of beds')
     }},
 
     clickfindbutton : {get: function(){
         $(findButton).click();
         console.log(browser.getTitle());
     }}
-})
-
-var homepageassertions = Object.create(page, {
-    entertext1: {get: function(text1){
-        var text = $(locationBar).setValue("Dubai")
-        browser.pause(2000);
-        $(locationIndex).click();
-    }}
-
-
 })
 
 module.exports = homepage;

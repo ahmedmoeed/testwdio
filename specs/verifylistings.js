@@ -1,6 +1,7 @@
 'use strict';
 
 var homepage = require('../pageobjects/homepage');
+var searchlisting = require('../pageobjects/searchlisting');
 
 describe('homepage', function() {
     it('should open the website and get title', function() {
@@ -14,8 +15,7 @@ describe('homepage', function() {
     })
 
     it ('Enter dubai in location bar', function(){
-        homepage.enterlocation;
-        console.log('Dubai entered in the location box')
+        homepage.enterlocation("Abu Dhabi");
     })
 
     it ('Select values from more filters', function(){
@@ -30,14 +30,21 @@ describe('homepage', function() {
     })
 
     it('Select min and max price', function(){
-        homepage.selectprice;
+        homepage.selectMinprice("200,000");
+        homepage.selectMaxprice("5,000,000");
     })
 
     it('Select beds', function(){
-        homepage.selectbeds;
+        homepage.selectbeds("5");
     })
 
     it('Click on find button', function(){
         homepage.clickfindbutton;
+    })
+});
+
+describe('searchlisting', function(){
+    it('verify all the listings are from dubai', function() {
+        searchlisting.verifyListingslocation;
     })
 });
