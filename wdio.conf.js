@@ -57,14 +57,32 @@ exports.config = {
         // },
         {
             maxInstances: 1,
-            browserName: 'firefox'
+            browserName: 'firefox',
+            exclude:[
+                'specs/verifylistings.js',
+                'specs/mobileviewverification.js'
+                ]
         },{
             maxInstances: 1,
             browserName: 'chrome',
             exclude:[
+                'specs/verifylistings.js',
+                'specs/mobileviewverification.js'
+            ]
+        },{
+            browserName: 'chrome',
+            version: '*',
+            chromeOptions: {
+                mobileEmulation: {
+                    deviceName: 'iPhone 6 Plus'
+                }
+            },
+            exclude:[
                 'specs/verifylistings.js'
             ]
+
         }
+        
     ],
     //
     // ===================

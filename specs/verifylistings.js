@@ -15,7 +15,7 @@ describe('homepage', function() {
     })
 
     it ('Enter dubai in location bar', function(){
-        homepage.enterlocation("Abu Dhabi");
+        homepage.enterlocation("Dubai");
     })
 
     it ('Select values from more filters', function(){
