@@ -30,7 +30,7 @@ describe('homepage', function() {
     })
 
     it('Select min and max price', function(){
-        homepage.selectMinprice("200,000" , "5,000,000");
+        homepage.selectPrice("200,000" , "5,000,000");
     })
 
     it('Select beds', function(){
