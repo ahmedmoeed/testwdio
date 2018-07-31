@@ -69,7 +69,8 @@ exports.config = {
                 'specs/verifylistings.js',
                 'specs/mobileviewverification.js'
             ]
-        },{
+        },
+        {
             browserName: 'chrome',
             version: '*',
             chromeOptions: {
