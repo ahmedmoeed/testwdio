@@ -2,7 +2,7 @@ var page = require('./page');
 var assert = require('assert');
 
 //Page objects Desktop
-var saleButton = '//button[text() = "For Sale"]'
+var saleButton = '//*[text() = "For Sale"]'
 var locationBar = '//*[@type="text"]'
 var locationIndex = '//li[@data-selected="true"]'
 var moreOption = '//*[@aria-label="Collapse expand button"]'
@@ -17,10 +17,6 @@ var findButton = '//a[@role="button"]'
 var closeBedsfilter = '//button[@class="_85b30621"]'
 var showPropertytypes = '//*[@name="Category picker"]'
 
-// Page objects Mobileview
-var mobilepropertytypebox = '//*[@name = "Category filter"]'
-var donebutton = '//*[text()="Done"]'
-
 
 //Page Function
 var homepage = Object.create(page, { 
@@ -28,8 +24,9 @@ var homepage = Object.create(page, {
     salebtn : {get: function() {$(saleButton).click()}},
 
     enterlocation : {value: function(setLocation) {
-        $(locationBar).setValue(setLocation)
         browser.pause(2000);
+        $(locationBar).setValue(setLocation)
+        //browser.pause(2000);
         $(locationIndex).click();
         console.log(setLocation + " is entered in the location box")
     }},
@@ -49,15 +46,6 @@ var homepage = Object.create(page, {
     propertytypebox : {get: function(){
         $(propertyTypebox).click();
         homepage.selectpropertytype('Townhouse')
-    }},
-
-    //Click on property type selection box to go to the next screen which shows different property types (Mobile)
-    propertytypeboxmobile : {get: function(){
-        $(mobilepropertytypebox).click();
-        homepage.selectpropertytype('Townhouse')
-        $(donebutton).click();
-        console.log("Property selected")
-        
     }},
 
     //Select the property type

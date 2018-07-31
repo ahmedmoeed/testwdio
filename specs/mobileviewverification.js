@@ -1,6 +1,5 @@
 'use strict';
 
-var homepage = require('../pageobjects/homepage');
 var homepagemobile = require('../pageobjects/homepagemobile');
 
 describe('homepagemobile', function() {
@@ -10,18 +9,18 @@ describe('homepagemobile', function() {
     })
         
     it ('should click on for sale', function(){
-       homepage.salebtn
-       console.log ('For Sale button is clicked')
+        browser.pause(2000);
+       homepagemobile.salebtn
     })
 
     it ('Enter dubai in location bar', function(){
         browser.pause(2000);
-        homepage.enterlocation("Dubai");
+        homepagemobile.enterlocation("Dubai");
     })
 
     it ('Select Property Type', function(){
         browser.pause(2000);
-        homepage.propertytypeboxmobile;
+        homepagemobile.propertytypeboxmobile;
     })
 
     it ('Select min and max price', function(){
@@ -30,17 +29,14 @@ describe('homepagemobile', function() {
     })
 
     it ('Select no of beds', function(){
-        //browser.pause(2000);
         homepagemobile.selectBeds("3");
     })
 
     it ('Select no of baths', function(){
-        //browser.pause(2000);
         homepagemobile.selectBaths("2");
     })
 
     it ('Select min and max area', function(){
-        //browser.pause(2000);
         homepagemobile.selectArea("1,000" , "14,000");
     })
 
