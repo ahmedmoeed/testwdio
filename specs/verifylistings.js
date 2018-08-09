@@ -2,42 +2,44 @@
 
 var homepage = require('../pageobjects/homepage');
 var searchlisting = require('../pageobjects/searchlisting');
+var propertydetailpage = require('../pageobjects/propertydetailpage')
 
 describe('homepage', function() {
-    it('should open the website and get title', function() {
+    it ('should open the website and get title', function() {
         browser.url('https://sl:getin1@bayut-development.herokuapp.com/');
         console.log(browser.getTitle());
     })
         
-    it ('should click on for sale', function(){
-       homepage.salebtn.click();
+    step ('should click on for sale', function(){
+       homepage.salebtn
        console.log ('For Sale button is clicked')
     })
 
-    it ('Enter dubai in location bar', function(){
+    step ('Enter dubai in location bar', function(){
         homepage.enterlocation("Dubai");
     })
 
-    it ('Select values from more filters', function(){
+    step ('Select values from more filters', function(){
         browser.pause(2000);
         homepage.clickmoreoption;
         console.log('More option button is clicked to view other filters');
     })
 
-    it ('Select Property Type', function(){
+    step ('Select Property Type', function(){
         browser.pause(2000);
+        homepage.clickpropertytypebox
         homepage.selectpropertytype('Townhouse');
     })
 
-    it('Select min and max price', function(){
+    step ('Select min and max price', function(){
         homepage.selectPrice("200,000" , "5,000,000");
     })
 
-    it('Select beds', function(){
+    step ('Select beds', function(){
         homepage.selectbeds("5");
     })
 
-    it('Click on find button', function(){
+    step ('Click on find button', function(){
         homepage.clickfindbutton;
     })
 });
@@ -45,7 +47,15 @@ describe('homepage', function() {
 describe('searchlisting', function(){
     it('verify all the listings are from dubai', function() {
         searchlisting.verifyListingslocation;
-        searchlisting.navigateNextpage("2");
+        searchlisting.navigateNextpage("1");
         searchlisting.verifyListingslocation;
+    })
+});
+
+describe ('propertydetailpage', function(){
+    it('verify that property detail have correct filter values', function(){
+        searchlisting.navigateNextpage("0");
+        propertydetailpage.clickOnPropertycard
+
     })
 });

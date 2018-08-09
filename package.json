@@ -5,8 +5,10 @@
     "geckodriver": "^1.11.0",
     "n": "^2.1.12",
     "selenium-standalone": "^6.15.1",
-    "webdriverio": "^4.13.1"
+    "webdriverio": "^4.13.1",
+    "mocha-steps": "^1.1.0"
   },
+
   "devDependencies": {
     "wdio-chromedriver-service": "^0.1.1",
     "wdio-dot-reporter": "0.0.9",

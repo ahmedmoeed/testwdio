@@ -5,7 +5,6 @@ var homepage = require('../pageobjects/homepage');
 var saleButton = '//button[text() = "For Sale"]'
 var locationBar = '//*[@type="text"]'
 var locationIndex = '//li[@data-selected="true"]'
-var buyButton = '//*[text()="Buy"]'
 var mobilepropertytypebox = '//*[@name = "Category filter"]'
 var donebutton = '//*[text()="Done"]'
 var minPricefilter = '//*[text()="Price ("]//following::select[1]//child::option'
@@ -21,21 +20,21 @@ var homepagemobile = Object.create(page, {
 
     salebtn : {get: function() {
             $(saleButton).click()
-        console.log ('For Sale button is clicked')
+        //console.log ('For Sale button is clicked')
         }},
 
     enterlocation : {value: function(setLocation) {
         $(locationBar).setValue(setLocation)
         browser.pause(2000);
         $(locationIndex).click();
-        console.log(setLocation + " is entered in the location box")
+        //console.log(setLocation + " is entered in the location box")
     }},
 
     propertytypeboxmobile : {get: function(){
         $(mobilepropertytypebox).click();
         homepage.selectpropertytype('Townhouse')
         $(donebutton).click();
-        console.log("Property selected")  
+        //console.log("Property selected")  
     }},
 
     selectPrice : {value: function(minPrice, maxPrice){

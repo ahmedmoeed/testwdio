@@ -26,7 +26,7 @@ var homepage = Object.create(page, {
     enterlocation : {value: function(setLocation) {
         browser.pause(2000);
         $(locationBar).setValue(setLocation)
-        //browser.pause(2000);
+        browser.pause(2000);
         $(locationIndex).click();
         console.log(setLocation + " is entered in the location box")
     }},
@@ -43,9 +43,9 @@ var homepage = Object.create(page, {
     }},
 
     //Click on property type selection box to open the drop down (Desktop)
-    propertytypebox : {get: function(){
+    clickpropertytypebox : {get: function(){
         $(propertyTypebox).click();
-        homepage.selectpropertytype('Townhouse')
+        //homepage.selectpropertytype('Townhouse')
     }},
 
     //Select the property type
@@ -65,9 +65,9 @@ var homepage = Object.create(page, {
         }
     }},
 
-    minpricefilter : {get: function(){
+    /*minpricefilter : {get: function(){
         $(priceFilter).click();
-    }},
+    }},*/
 
     selectPrice : {value: function(minPrice, maxPrice){
         $(priceFilter).click();
