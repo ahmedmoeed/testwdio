@@ -59,7 +59,7 @@ exports.config = {
             maxInstances: 1,
             browserName: 'firefox',
             exclude:[
-                'specs/verifylistings.js',
+                //'specs/verifylistings.js',
                 'specs/mobileviewverification.js'
                 ]
         },{
@@ -69,7 +69,8 @@ exports.config = {
                 'specs/verifylistings.js',
                 'specs/mobileviewverification.js'
             ]
-        },{
+        },
+        {
             browserName: 'chrome',
             version: '*',
             chromeOptions: {
@@ -78,7 +79,8 @@ exports.config = {
                 }
             },
             exclude:[
-                'specs/verifylistings.js'
+                'specs/verifylistings.js',
+                'specs/mobileviewverification.js'
             ]
 
         }
@@ -167,8 +169,10 @@ exports.config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 60000,
+        require: 'mocha-steps',
     },
+    reporters: ['dot', 'spec'],
     //
     // =====
     // Hooks
@@ -193,6 +197,7 @@ exports.config = {
      */
     // beforeSession: function (config, capabilities, specs) {
     // },
+
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.

@@ -1,7 +1,7 @@
 var page = require('./page');
 var assert = require('assert');
 
-//Page objects
+//Page objects Desktop
 var saleButton = '//*[text() = "For Sale"]'
 var locationBar = '//*[@type="text"]'
 var locationIndex = '//li[@data-selected="true"]'
@@ -16,14 +16,15 @@ var selectedBeds = '//*[@aria-label="Bed filter"]/following::*[@aria-label]'
 var findButton = '//a[@role="button"]'
 var closeBedsfilter = '//button[@class="_85b30621"]'
 var showPropertytypes = '//*[@name="Category picker"]'
-//var selectedproperty
 
-//Page Functions
+
+//Page Function
 var homepage = Object.create(page, { 
 
-    salebtn : {get: function() {return $(saleButton)}},
+    salebtn : {get: function() {$(saleButton).click()}},
 
     enterlocation : {value: function(setLocation) {
+        browser.pause(2000);
         $(locationBar).setValue(setLocation)
         browser.pause(2000);
         $(locationIndex).click();
@@ -41,8 +42,14 @@ var homepage = Object.create(page, {
         }
     }},
 
-    selectpropertytype : {value: function(selectedProperty){
+    //Click on property type selection box to open the drop down (Desktop)
+    clickpropertytypebox : {get: function(){
         $(propertyTypebox).click();
+        //homepage.selectpropertytype('Townhouse')
+    }},
+
+    //Select the property type
+    selectpropertytype : {value: function(selectedProperty){
         //var selectedproperty = 'Townhouse'
         var propertyTypelist = $(showPropertytypes);
         var getPropertytypenames = $(showPropertytypes).getText('li');
@@ -55,10 +62,14 @@ var homepage = Object.create(page, {
             {
                 propertyTypelist.$$('li')[i].click();
             }
-        }    
+        }
     }},
 
-    selectMinprice : {value: function(minPrice, maxPrice){
+    /*minpricefilter : {get: function(){
+        $(priceFilter).click();
+    }},*/
+
+    selectPrice : {value: function(minPrice, maxPrice){
         $(priceFilter).click();
 
         var totalMinprices = $$(minPricerange).length;
@@ -72,9 +83,9 @@ var homepage = Object.create(page, {
                 $$(minPricerange)[i].click()
                 console.log(minPrice + ' is selected as the min price'); 
             }
-            if($$(maxPricerange)[i].getText() == maxPrice)
+            if($$(maxPricerange)[j].getText() == maxPrice)
             {
-                $$(maxPricerange)[i].click()
+                $$(maxPricerange)[j].click()
                 console.log(maxPrice + ' is selected as the max price');
             }
         }

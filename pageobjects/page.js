@@ -1,5 +1,6 @@
 function Page () {
     this.title = 'My Page';
+
 }
 
 Page.prototype.open = function (path) {
